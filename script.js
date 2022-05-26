@@ -86,28 +86,29 @@ async function quiz_proper() {
             }
         }
         
-    }
-
-    Swal.fire(
-        {    
-            title: `Quiz taking success!`,
-            text: `Hi ${login}! Your score is ${score}/${answers.length}.`
+        Swal.fire(
+            {    
+                title: `Quiz taking success!`,
+                text: `Hi ${login}! Your score is ${score}/${answers.length}.`
+            }
+        )
+    
+        let board = JSON.parse(localStorage.getItem('leader'));
+        const record = {
+            name: login,
+            score: score,
+            total: answers.length,
         }
-    )
-
-    let board = JSON.parse(localStorage.getItem('leader'));
-    const record = {
-        name: login,
-        score: score,
-        total: answers.length,
+        board.push(record);
+    
+        board.sort(function (a, b) {
+            return b.score - a.score;
+        })
+        localStorage.setItem('leader', JSON.stringify(board));
+    
+    
+    
     }
-    board.push(record);
-
-    board.sort(function (a, b) {
-        return b.score - a.score;
-    })
-    localStorage.setItem('leader', JSON.stringify(board));
-
 
 
 }
